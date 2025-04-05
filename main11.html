@@ -1,0 +1,27 @@
+<input type="file" id="fileInput" />
+<button onclick="upload()">업로드</button>
+
+<script>
+async function upload() {
+  const file = document.getElementById('fileInput').files[0];
+  const content = await file.arrayBuffer();
+  const base64Content = btoa(String.fromCharCode(...new Uint8Array(content)));
+
+  const token = prompt("GitHub Personal Access Token을 입력하세요:");
+
+  const res = await fetch("https://api.github.com/repos/ku123429/backend-repo/contents/" + file.name, {
+    method: "PUT",
+    headers: {
+      "Authorization": `token ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: `Upload ${file.name}`,
+      content: base64Content
+    })
+  });
+
+  const data = await res.json();
+  alert("업로드 성공! 링크: " + data.content.download_url);
+}
+</script>
