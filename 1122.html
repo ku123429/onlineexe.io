@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>이름 출력</title>
+</head>
+<body>
+
+  <input type="text" id="username" placeholder="이름을 입력하세요">
+  <button onclick="showName()">출력</button>
+
+  <p id="output"></p>
+
+  <script>
+    function showName() {
+      let name = document.getElementById("username").value;
+      document.getElementById("output").innerText = "반가워요, " + name + "님!";
+    }
+  </script>
+
+</body>
+</html>
